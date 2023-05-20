@@ -1,0 +1,40 @@
+.heroSection {
+  background-image: url("../../Assets/Hero-Banner.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heroContent {
+  text-align: center;
+  color: #fff;
+}
+
+.heroTitle {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+.heroSubtitle {
+  font-size: 24px;
+  margin-bottom: 40px;
+}
+
+.heroButton {
+  display: inline-block;
+  background-color: #0400ff;
+  color: #fff;
+  padding: 12px 24px;
+  font-size: 18px;
+  border: none;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.heroButton:hover {
+  background-color: #090779;
+}
