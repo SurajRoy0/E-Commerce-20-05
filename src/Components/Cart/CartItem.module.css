@@ -1,0 +1,57 @@
+.cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 8px 0;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.item img {
+  width: 50px;
+  margin-right: 10px;
+}
+
+.item-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.item-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: blueviolet;
+  margin-bottom: 10px;
+}
+
+.item-price {
+  font-size: 16px;
+  font-weight: 700;
+  color: black;
+}
+
+.item-amount {
+  font-size: 14px;
+  color: gray;
+  margin-top: 5px;
+}
+
+.item-actions button {
+  width: 30px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  background-color: blueviolet;
+  border: none;
+  padding: 5px 10px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.item-actions button:hover {
+  background-color: darkviolet;
+}

@@ -3,10 +3,10 @@ import React from "react";
 import styles from "./Header.module.css";
 import Navbar from "./NavBar";
 import HeroSection from "./HeroSection";
-const Header = () => {
+const Header = (props) => {
   return (
     <div>
-      <Navbar />
+      <Navbar onCartOpen={props.onCartOpen} />
       <HeroSection />
     </div>
   );

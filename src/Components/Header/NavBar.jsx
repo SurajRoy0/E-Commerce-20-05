@@ -2,7 +2,7 @@ import React from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import styles from "./NavBar.module.css";
 
-const Navbar = () => {
+const Navbar = (props) => {
   return (
     <nav className={styles.navbar}>
       <h2 className={styles.logoText}>E-Shop</h2>
@@ -22,13 +22,13 @@ const Navbar = () => {
             About
           </a>
         </li>
-        <li className={styles.navItem}>
-          <a href="#" className={styles.navLink}>
+        <li onClick={props.onCartOpen} className={styles.navItem}>
+          <div className={styles.navLink}>
             <span className={styles.cartIcon}>
               <FaShoppingCart />
             </span>
             Cart
-          </a>
+          </div>
         </li>
         <li className={styles.navItem}>
           <a href="#" className={styles.navLink}>
