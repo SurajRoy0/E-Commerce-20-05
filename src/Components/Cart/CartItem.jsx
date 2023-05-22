@@ -5,12 +5,12 @@ const CartItem = ({ item, onAdd, onRemove }) => {
   return (
     <li className={styles["cart-item"]}>
       <div className={styles.item}>
-        <img src={item.imageUrl} alt={item.name} />
+        <img src={item.image} alt={item.name} />
         <div className={styles["item-details"]}>
           <span className={styles["item-name"]}>{item.title}</span>
           <div>
             <span className={styles["item-price"]}>₹{item.price} </span>
-            <span className={styles["item-amount"]}>x {item.quantity}</span>
+            <span className={styles["item-amount"]}>x {item.amount}</span>
           </div>
         </div>
       </div>

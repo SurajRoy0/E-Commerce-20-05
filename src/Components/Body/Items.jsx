@@ -5,41 +5,33 @@ import styles from "./Items.module.css";
 
 const productsArr = [
   {
+    id: "i1",
     title: "Colors",
-
     price: 100,
-
     imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%201.png",
   },
-
   {
+    id: "i2",
     title: "Black and white Colors",
-
     price: 50,
-
     imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%202.png",
   },
-
   {
+    id: "i3",
     title: "Yellow and Black Colors",
-
     price: 70,
-
     imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%203.png",
   },
-
   {
+    id: "i4",
     title: "Blue Color",
-
     price: 100,
-
     imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%204.png",
   },
   {
+    id: "i5",
     title: "Colors",
-
     price: 100,
-
     imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%201.png",
   },
 ];
@@ -51,9 +43,9 @@ const Items = () => {
       <h1>New Products</h1>
       <div className={styles.items}>
         {products.map((item) => (
-          <div className={styles.item}>
+          <div key={item.id} className={styles.item}>
             <Item
-              key={item.id}
+              id={item.id}
               title={item.title}
               image={item.imageUrl}
               price={item.price}

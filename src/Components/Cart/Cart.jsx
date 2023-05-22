@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import ReactDOM from "react-dom";
 import styles from "./Cart.module.css";
 
 import CartItem from "./CartItem";
+import CartContext from "../../Store/cart-context";
 const cartElements = [
   {
     id: "i1",
@@ -29,6 +30,7 @@ const cartElements = [
 const Cart = (props) => {
   const [cartItems, setCartItems] = useState(cartElements);
   const portalElement = document.getElementById("cart");
+  const cartCtx = useContext(CartContext);
 
   return (
     <>
@@ -37,10 +39,10 @@ const Cart = (props) => {
           <div className={styles["cart-container"]}>
             <div className={styles["first-div"]}>
               <h1>Shopping Cart</h1>
-              <button onClick={props.onCartClose}>close</button>
+              <button onClick={props.onCartClose}>Close</button>
             </div>
             <ul className={styles["second-div"]}>
-              {cartItems.map((item) => (
+              {cartCtx.items.map((item) => (
                 <CartItem
                   key={item.id}
                   item={item}
@@ -50,7 +52,7 @@ const Cart = (props) => {
               ))}
             </ul>
             <div className={styles["third-div"]}>
-              <h2>SubTotal: 2000</h2>
+              <h2>SubTotal: ₹{cartCtx.totalAmount}</h2>
               <button>Place Order</button>
             </div>
           </div>

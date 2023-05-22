@@ -15,6 +15,7 @@
 
 .navbarNav {
   display: flex;
+  align-items: center;
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -34,8 +35,25 @@
   cursor: pointer;
 }
 
-.cartIcon {
+.cart {
+  position: relative;
   margin-right: 5px;
+}
+
+.cartIcon {
+  font-size: 25px;
+}
+
+.cartNumber {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: rgb(255, 0, 119);
+  color: rgb(255, 255, 255);
+  font-size: 12px;
+  font-weight: bold;
+  padding: 3px 8px;
+  border-radius: 50%;
 }
 
 .navLink:hover {
