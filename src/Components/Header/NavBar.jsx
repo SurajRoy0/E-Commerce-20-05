@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import styles from "./NavBar.module.css";
 import CartContext from "../../Store/cart-context";
+import { NavLink } from "react-router-dom";
 
 const Navbar = (props) => {
   const cartCtx = useContext(CartContext);
@@ -14,22 +15,38 @@ const Navbar = (props) => {
       <h2 className={styles.logoText}>E-Shop</h2>
       <ul className={styles.navbarNav}>
         <li className={styles.navItem}>
-          <a href="#" className={styles.navLink}>
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              isActive ? styles.activeNavLink : styles.navLink
+            }
+            end
+          >
             Home
-          </a>
+          </NavLink>
         </li>
         <li className={styles.navItem}>
-          <a href="#" className={styles.navLink}>
+          <NavLink
+            to="/shop"
+            className={({ isActive }) =>
+              isActive ? styles.activeNavLink : styles.navLink
+            }
+          >
             Shop
-          </a>
+          </NavLink>
         </li>
         <li className={styles.navItem}>
-          <a href="#" className={styles.navLink}>
+          <NavLink
+            to="/about"
+            className={({ isActive }) =>
+              isActive ? styles.activeNavLink : styles.navLink
+            }
+          >
             About
-          </a>
+          </NavLink>
         </li>
         <li onClick={props.onCartOpen} className={styles.navItem}>
-          <div className={styles.navLink}>
+          <div className={`${styles.navLink} ${styles.navLinkCart}`}>
             Cart
             <span className={styles.cart}>
               <FaShoppingCart className={styles.cartIcon} />
@@ -38,9 +55,14 @@ const Navbar = (props) => {
           </div>
         </li>
         <li className={styles.navItem}>
-          <a href="#" className={styles.navLink}>
+          <NavLink
+            to="account"
+            className={({ isActive }) =>
+              isActive ? styles.activeNavLink : styles.navLink
+            }
+          >
             Account
-          </a>
+          </NavLink>
         </li>
       </ul>
     </nav>

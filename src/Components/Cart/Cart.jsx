@@ -32,6 +32,14 @@ const Cart = (props) => {
   const portalElement = document.getElementById("cart");
   const cartCtx = useContext(CartContext);
 
+  const onAddButton = (item) => {
+    cartCtx.addItem(item);
+  };
+
+  const onRemoveButton = (id) => {
+    cartCtx.removeItem(id);
+  };
+
   return (
     <>
       {ReactDOM.createPortal(
@@ -46,8 +54,8 @@ const Cart = (props) => {
                 <CartItem
                   key={item.id}
                   item={item}
-                  onAdd={() => alert("done")}
-                  onRemove={() => alert("done")}
+                  onAdd={() => onAddButton(item)}
+                  onRemove={() => onRemoveButton(item.id)}
                 />
               ))}
             </ul>

@@ -39,20 +39,17 @@ const productsArr = [
 const Items = () => {
   const [products, setProducts] = useState(productsArr);
   return (
-    <div className={styles.itemsContainer}>
-      <h1>New Products</h1>
-      <div className={styles.items}>
-        {products.map((item) => (
-          <div key={item.id} className={styles.item}>
-            <Item
-              id={item.id}
-              title={item.title}
-              image={item.imageUrl}
-              price={item.price}
-            />
-          </div>
-        ))}
-      </div>
+    <div className={styles.items}>
+      {products.map((item) => (
+        <div key={item.id} className={styles.item}>
+          <Item
+            id={item.id}
+            title={item.title}
+            image={item.imageUrl}
+            price={item.price}
+          />
+        </div>
+      ))}
     </div>
   );
 };

@@ -34,7 +34,17 @@
   align-items: center;
   cursor: pointer;
 }
-
+.activeNavLink {
+  color: black;
+  text-decoration: none;
+  padding: 5px;
+  transition: color 0.3s;
+  cursor: pointer;
+}
+.navLinkCart {
+  display: flex;
+  align-items: center;
+}
 .cart {
   position: relative;
   margin-right: 5px;
@@ -57,10 +67,5 @@
 }
 
 .navLink:hover {
-  color: #fff;
-  background-color: #090779;
-}
-
-.navLink:hover .cartIcon {
-  color: #fff;
+  color: #0c0c0c;
 }

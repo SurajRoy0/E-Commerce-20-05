@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 import './App.css';
 import CartProvider from './Store/CartProvider';
-import Header from "./Components/Header/Header"
-import Items from './Components/Body/Items';
 import Footer from './Components/Footer/Footer';
 import Cart from './Components/Cart/Cart';
+import Navbar from './Components/Header/NavBar';
+import Home from './Components/Pages/Home';
+import About from './Components/Pages/About';
+
 function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const cartOpenHandler = () => {
@@ -15,13 +19,17 @@ function App() {
     setIsCartOpen(false);
   }
 
-
   return (
     <CartProvider>
-      {isCartOpen && <Cart onCartClose={cartCloseHandler} />}
-      <Header onCartOpen={cartOpenHandler} />
-      <Items />
-      <Footer />
+      <Router>
+        <Navbar onCartOpen={cartOpenHandler} />
+        {isCartOpen && <Cart onCartClose={cartCloseHandler} />}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
+        <Footer />
+      </Router>
     </CartProvider>
   );
 }

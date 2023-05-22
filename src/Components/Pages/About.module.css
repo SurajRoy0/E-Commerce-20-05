@@ -1,0 +1,18 @@
+.container {
+  padding: 0 200px 50px 200px;
+}
+
+.image {
+  max-width: 19rem;
+  height: 12rem;
+  margin-right: 10px;
+  float: left;
+}
+h1 {
+  text-align: center;
+}
+
+.content p {
+  text-align: justify;
+  margin-top: 0;
+}
