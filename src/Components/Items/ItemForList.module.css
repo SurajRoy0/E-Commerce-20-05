@@ -1,0 +1,43 @@
+.item-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  text-align: start;
+}
+
+.image-div {
+  width: 25%;
+  height: 50px;
+}
+
+.image {
+  width: 25%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.item-title {
+  font-size: 16px;
+  font-weight: bold;
+  width: 40%;
+  text-align: start;
+}
+
+.item-price {
+  font-size: 14px;
+  color: #888;
+  width: 25%;
+  text-align: start;
+}
+
+.add-to-cart-btn {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+}

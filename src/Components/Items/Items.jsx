@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import Item from "./Item";
 import styles from "./Items.module.css";
+import LayoutToggleButton from "../UI/LayoutToggleButton ";
 
 const productsArr = [
   {
@@ -36,21 +37,34 @@ const productsArr = [
   },
 ];
 
-const Items = () => {
+const Items = (props) => {
   const [products, setProducts] = useState(productsArr);
+  const [isGrid, setIsGrid] = useState();
+  const layoutHandler = (toggle) => {
+    setIsGrid(toggle);
+  };
+  const layout = isGrid ? styles.itemsList : styles.itemsGrid;
+  console.log(layout);
   return (
-    <div className={styles.items}>
-      {products.map((item) => (
-        <div key={item.id} className={styles.item}>
-          <Item
-            id={item.id}
-            title={item.title}
-            image={item.imageUrl}
-            price={item.price}
-          />
-        </div>
-      ))}
-    </div>
+    <>
+      <div className={styles.itemContainer}>
+        <h1>{props.title}</h1>
+        <LayoutToggleButton layoutHandler={layoutHandler} />
+      </div>
+      <div className={layout}>
+        {products.map((item) => (
+          <div key={item.id} className={styles.item}>
+            <Item
+              isGrid={isGrid}
+              id={item.id}
+              title={item.title}
+              image={item.imageUrl}
+              price={item.price}
+            />
+          </div>
+        ))}
+      </div>
+    </>
   );
 };
 

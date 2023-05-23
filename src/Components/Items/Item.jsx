@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
 
-import styles from "./Item.module.css";
+import stylesGrid from "./ItemForGrid.module.css";
+import stylesList from "./ItemForList.module.css";
 import CartContext from "../../Store/cart-context";
-const Item = ({ id, title, image, price }) => {
+const Item = ({ id, title, image, price, isGrid }) => {
   const cartCtx = useContext(CartContext);
+  const layout = isGrid ? stylesList : stylesGrid;
 
   const onClickAddToCartHandler = () => {
     cartCtx.addItem({
@@ -16,13 +18,15 @@ const Item = ({ id, title, image, price }) => {
   };
 
   return (
-    <div className={styles.Item}>
-      <img src={image} alt={title} className={styles["Item-image"]} />
-      <h3 className={styles["Item-title"]}>{title}</h3>
-      <p className={styles["Item-price"]}>${price}</p>
+    <div className={layout["item-container"]}>
+      <div className={layout["image-div"]}>
+        <img src={image} alt={title} className={layout.image} />
+      </div>
+      <span className={layout["item-title"]}>{title}</span>
+      <span className={layout["item-price"]}>${price}</span>
       <button
         onClick={onClickAddToCartHandler}
-        className={styles["add-to-cart-btn"]}
+        className={layout["add-to-cart-btn"]}
       >
         Add to Cart
       </button>

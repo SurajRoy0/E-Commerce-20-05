@@ -43,7 +43,10 @@ const Cart = (props) => {
   return (
     <>
       {ReactDOM.createPortal(
-        <div className={styles["cart-container-blur"]}>
+        <div
+          // onClick={props.onCartClose}
+          className={styles["cart-container-blur"]}
+        >
           <div className={styles["cart-container"]}>
             <div className={styles["first-div"]}>
               <h1>Shopping Cart</h1>
