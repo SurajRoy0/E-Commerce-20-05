@@ -2,3 +2,12 @@
   padding: 50px 200px;
   text-align: center;
 }
+
+.action {
+  margin: 20px auto 0 auto;
+  padding: 8px 25px;
+  background-color: rgb(10, 64, 212);
+  border-style: none;
+  border-radius: 4px;
+  color: aliceblue;
+}

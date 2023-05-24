@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import styles from "./ContactUs.module.css";
 
 const ContactUs = () => {
@@ -30,6 +32,10 @@ const ContactUs = () => {
         data
       );
       const responseData = await response.data;
+      toast.success("🦄 Query Sent Successfully", {
+        position: "bottom-right",
+        theme: "colored",
+      });
       console.log("Post request successful:", responseData);
     } catch (error) {
       console.error("Error:", error);
@@ -40,7 +46,7 @@ const ContactUs = () => {
     const nameInfo = name.trim();
     const emailInfo = email.trim();
     const phoneInfo = phone.trim();
-    const descriptionInfo = email.trim();
+    const descriptionInfo = description.trim();
     const contactData = { nameInfo, emailInfo, phoneInfo, descriptionInfo };
     sendContactDataHandler(contactData);
     setName("");
@@ -96,6 +102,7 @@ const ContactUs = () => {
           Submit
         </button>
       </form>
+      <ToastContainer />
     </div>
   );
 };

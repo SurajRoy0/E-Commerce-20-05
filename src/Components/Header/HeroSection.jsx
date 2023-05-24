@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styles from "./HeroSection.module.css";
 
 const HeroSection = () => {
@@ -9,9 +10,9 @@ const HeroSection = () => {
         <p className={styles.heroSubtitle}>
           Discover the Best Deals on Your Favorite Products
         </p>
-        <a href="#" className={styles.heroButton}>
+        <Link to="Products" className={styles.heroButton}>
           Shop Now
-        </a>
+        </Link>
       </div>
     </div>
   );

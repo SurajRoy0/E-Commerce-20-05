@@ -1,15 +1,34 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import axios from "axios";
 
 import styles from "./Home.module.css";
-import AvailableShows from "../MovieTickes/AvailableShows";
 import HeroSection from "../Header/HeroSection";
+import Items from "../Items/Items";
+import { Link } from "react-router-dom";
 
 const Home = () => {
+  const [products, setProducts] = useState([]);
+  const productsFetchHandler = useCallback(async () => {
+    try {
+      const response = await axios.get("https://server-2ezz.onrender.com/Male");
+      setProducts(response.data);
+    } catch (error) {
+      // Handle the error
+      console.error("Error fetching products:", error);
+    }
+  }, []);
+
+  useEffect(() => {
+    productsFetchHandler();
+  }, [productsFetchHandler]);
   return (
     <>
       <HeroSection />
       <div className={styles.itemsContainer}>
-        <AvailableShows title="Available Shows" />
+        <Items title="New Products" products={products} />
+        <Link to="products">
+          <button className={styles.action}>See More</button>
+        </Link>
       </div>
     </>
   );

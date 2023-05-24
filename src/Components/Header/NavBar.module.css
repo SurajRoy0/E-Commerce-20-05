@@ -44,6 +44,7 @@
 .navLinkCart {
   display: flex;
   align-items: center;
+  margin-left: 5px;
 }
 .cart {
   position: relative;

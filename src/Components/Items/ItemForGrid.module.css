@@ -6,10 +6,11 @@
   border: 1px solid #ccc;
   background-color: #f9f9f9;
   text-align: center;
+  text-decoration: none;
 }
 
 .image-div {
-  height: 150px;
+  height: 250px;
 }
 
 .image {
@@ -22,18 +23,23 @@
   transform: scale(1.2);
 }
 
-.item-title {
-  font-size: 16px;
+.item-details {
+  font-size: 14px;
   font-weight: bold;
 }
 
-.item-price {
+.item-gender {
   font-size: 14px;
   color: #888;
 }
 
+.item-price {
+  font-size: 16px;
+  font-weight: bold;
+}
+
 .add-to-cart-btn {
-  background-color: #007bff;
+  background-color: #ff8800;
   color: #fff;
   border: none;
   padding: 5px 10px;

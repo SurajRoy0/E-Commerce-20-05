@@ -12,7 +12,11 @@ const Navbar = (props) => {
 
   return (
     <nav className={styles.navbar}>
-      <h2 className={styles.logoText}>E-Shop</h2>
+      <div>
+        <NavLink to="/" className={styles.navLink}>
+          <h2 className={styles.logoText}>E-Shop</h2>
+        </NavLink>
+      </div>
       <ul className={styles.navbarNav}>
         <li className={styles.navItem}>
           <NavLink
@@ -43,6 +47,16 @@ const Navbar = (props) => {
             }
           >
             About
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/contact-us"
+            className={({ isActive }) =>
+              isActive ? styles.activeNavLink : styles.navLink
+            }
+          >
+            Contact Us
           </NavLink>
         </li>
         <li onClick={props.onCartOpen} className={styles.navItem}>
