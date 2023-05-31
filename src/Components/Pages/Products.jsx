@@ -3,6 +3,7 @@ import axios from "axios";
 import styles from "./Products.module.css";
 import Items from "../Items/Items";
 import Pagination from "../UI/Pagination";
+import Loader from "../UI/Loader";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -13,6 +14,7 @@ const Products = () => {
   const [selectedGender, setSelectedGender] = useState("");
   const [currentItems, setCurrentItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
   const pageSize = 12;
 
   useEffect(() => {
@@ -21,9 +23,11 @@ const Products = () => {
   }, [filteredProducts, currentPage]);
 
   const fetchProducts = useCallback(async () => {
+    setIsLoading(true);
     try {
       const response = await axios.get("https://server-2ezz.onrender.com/Male");
       setProducts(response.data);
+      setIsLoading(false);
     } catch (error) {
       console.error("Error fetching products:", error);
     }
@@ -120,12 +124,18 @@ const Products = () => {
       </div>
 
       <div className={styles.filteredProducts}>
-        <Items title="Products" products={currentItems} />
-        <Pagination
-          numberOfProduct={filteredProducts.length}
-          pageSize={pageSize}
-          setSurrentPage={setCurrentPage}
-        />
+        {isLoading ? (
+          <Loader height="500px" width="100%" />
+        ) : (
+          <>
+            <Items title="Products" products={currentItems} />
+            <Pagination
+              numberOfProduct={filteredProducts.length}
+              pageSize={pageSize}
+              setSurrentPage={setCurrentPage}
+            />
+          </>
+        )}
       </div>
     </div>
   );

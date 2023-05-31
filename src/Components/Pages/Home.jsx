@@ -5,16 +5,19 @@ import styles from "./Home.module.css";
 import HeroSection from "../Header/HeroSection";
 import Items from "../Items/Items";
 import { Link } from "react-router-dom";
+import Loader from "../UI/Loader";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const productsFetchHandler = useCallback(async () => {
+    setIsLoading(true);
     try {
       const response = await axios.get(
         "https://server-2ezz.onrender.com/Male?_page=1&_limit=8"
       );
       setProducts(response.data);
-      console.log(response.data);
+      setIsLoading(false);
     } catch (error) {
       // Handle the error
       console.error("Error fetching products:", error);
@@ -28,7 +31,11 @@ const Home = () => {
     <>
       <HeroSection />
       <div className={styles.itemsContainer}>
-        <Items title="New Products" products={products} />
+        {isLoading ? (
+          <Loader height="400px" width="100%" />
+        ) : (
+          <Items title="New Products" products={products} />
+        )}
         <Link to="products">
           <button className={styles.action}>See More</button>
         </Link>

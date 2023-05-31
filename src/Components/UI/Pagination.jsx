@@ -5,6 +5,10 @@ import styles from "./Pagination.module.css";
 const Pagination = ({ numberOfProduct, setSurrentPage, pageSize }) => {
   const handlePageChange = (data) => {
     setSurrentPage(data.selected);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
   return (
     <div className={styles["pagination-container"]}>
