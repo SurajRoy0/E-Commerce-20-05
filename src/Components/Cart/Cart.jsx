@@ -4,36 +4,28 @@ import styles from "./Cart.module.css";
 
 import CartItem from "./CartItem";
 import CartContext from "../../Store/cart-context";
-const cartElements = [
-  {
-    id: "i1",
-    title: "Colors",
-    price: 100,
-    imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%201.png",
-    quantity: 2,
-  },
-  {
-    id: "i2",
-    title: "Black and white Colors",
-    price: 50,
-    imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%202.png",
-    quantity: 3,
-  },
-  {
-    id: "i3",
-    title: "Yellow and Black Colors",
-    price: 70,
-    imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%203.png",
-    quantity: 1,
-  },
-];
+import { ToastContainer, toast } from "react-toastify";
+
 const Cart = (props) => {
-  const [cartItems, setCartItems] = useState(cartElements);
   const portalElement = document.getElementById("cart");
   const cartCtx = useContext(CartContext);
+  console.log(cartCtx.items);
+  const onOrderHandler = () => {
+    cartCtx.removeAllItems();
+    toast.success("Ordered Successfully", {
+      position: "top-center",
+      theme: "colored",
+    });
+  };
 
   const onAddButton = (item) => {
-    cartCtx.addItem(item);
+    cartCtx.addItem({
+      id: item.id,
+      title: item.title,
+      amount: 1,
+      price: item.price,
+      image: item.image,
+    });
   };
 
   const onRemoveButton = (id) => {
@@ -43,13 +35,10 @@ const Cart = (props) => {
   return (
     <>
       {ReactDOM.createPortal(
-        <div
-          // onClick={props.onCartClose}
-          className={styles["cart-container-blur"]}
-        >
+        <div className={styles["cart-container-blur"]}>
           <div className={styles["cart-container"]}>
             <div className={styles["first-div"]}>
-              <h1>Shopping Cart</h1>
+              <h2>Shopping Cart</h2>
               <button onClick={props.onCartClose}>Close</button>
             </div>
             <ul className={styles["second-div"]}>
@@ -59,14 +48,21 @@ const Cart = (props) => {
                   item={item}
                   onAdd={() => onAddButton(item)}
                   onRemove={() => onRemoveButton(item.id)}
+                  onCartClose={props.onCartClose}
                 />
               ))}
             </ul>
-            <div className={styles["third-div"]}>
-              <h2>SubTotal: ₹{cartCtx.totalAmount}</h2>
-              <button>Place Order</button>
-            </div>
+            {cartCtx.items.length !== 0 && (
+              <div className={styles["third-div"]}>
+                <h2>SubTotal: ₹{cartCtx.totalAmount}</h2>
+                <button onClick={onOrderHandler}>Place Order</button>
+              </div>
+            )}
+            {cartCtx.items.length === 0 && (
+              <h2 className={styles.empty}>Empty</h2>
+            )}
           </div>
+          <ToastContainer />
         </div>,
         portalElement
       )}

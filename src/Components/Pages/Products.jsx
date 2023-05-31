@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import styles from "./Products.module.css";
 import Items from "../Items/Items";
+import Pagination from "../UI/Pagination";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -10,6 +11,14 @@ const Products = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedPriceRange, setSelectedPriceRange] = useState("");
   const [selectedGender, setSelectedGender] = useState("");
+  const [currentItems, setCurrentItems] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
+  const pageSize = 12;
+
+  useEffect(() => {
+    const offset = currentPage * pageSize;
+    setCurrentItems(filteredProducts.slice(offset, offset + pageSize));
+  }, [filteredProducts, currentPage]);
 
   const fetchProducts = useCallback(async () => {
     try {
@@ -37,25 +46,25 @@ const Products = () => {
   }, [products]);
 
   const filterProducts = () => {
-    console.log("run");
     let afterFilter = products;
-    if (selectedCategory) {
+
+    if (selectedCategory && selectedCategory !== "All") {
       afterFilter = products.filter(
         (product) => product.category === selectedCategory
       );
     }
 
-    if (selectedPriceRange) {
+    if (selectedPriceRange && selectedPriceRange !== "All") {
       const priceRangeInArray = selectedPriceRange.split("-");
-      afterFilter = products.filter(
+      afterFilter = afterFilter.filter(
         (product) =>
           product.price >= +priceRangeInArray[0] &&
           product.price <= +priceRangeInArray[1]
       );
     }
 
-    if (selectedGender) {
-      afterFilter = products.filter(
+    if (selectedGender && selectedGender !== "All") {
+      afterFilter = afterFilter.filter(
         (product) => product.gender === selectedGender
       );
     }
@@ -111,7 +120,12 @@ const Products = () => {
       </div>
 
       <div className={styles.filteredProducts}>
-        <Items title="Products" products={filteredProducts} />
+        <Items title="Products" products={currentItems} />
+        <Pagination
+          numberOfProduct={filteredProducts.length}
+          pageSize={pageSize}
+          setSurrentPage={setCurrentPage}
+        />
       </div>
     </div>
   );

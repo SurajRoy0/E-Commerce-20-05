@@ -11,6 +11,7 @@ import About from './Components/Pages/About';
 import SingleProduct from "./Components/Pages/SingleProduct"
 import ContactUs from './Components/Pages/ContactUs';
 import Products from './Components/Pages/Products';
+import Login from './Components/Pages/Login';
 
 function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -33,6 +34,7 @@ function App() {
           <Route path="/products" element={<Products />} />
           <Route path="/product/:productId" element={<SingleProduct />} />
           <Route path="/contact-us" element={<ContactUs />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
         <Footer />
       </Router>

@@ -1,13 +1,48 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useReducer,
+  useContext,
+} from "react";
 import axios from "axios";
 import styles from "./SingleProduct.module.css";
 import { useParams } from "react-router-dom";
+import CartContext from "../../Store/cart-context";
+
+const minAmount = 1;
+const stateReducer = (state, action) => {
+  if (action.type === "INCREASE") {
+    return state + 1;
+  }
+
+  if (action.type === "DECREASE") {
+    if (state === 1) {
+      return 1;
+    }
+    return state - 1;
+  }
+
+  return minAmount;
+};
 
 const SingleProduct = () => {
   const [product, setProduct] = useState({});
+  const [amount, dispatchAmount] = useReducer(stateReducer, minAmount);
+  const [changeImage, setChangeImage] = useState(false);
   const { productId } = useParams();
   const { inImage, outImage, cardDetails, price, gender, category, quantity } =
     product;
+
+  const { addItem } = useContext(CartContext);
+
+  const onIncreaseAmount = () => {
+    dispatchAmount({ type: "INCREASE" });
+  };
+
+  const onDecreaseAmount = () => {
+    dispatchAmount({ type: "DECREASE" });
+  };
 
   const singleProductFetchHandler = useCallback(async () => {
     try {
@@ -23,12 +58,34 @@ const SingleProduct = () => {
   useEffect(() => {
     singleProductFetchHandler();
   }, [singleProductFetchHandler]);
+  const changeImageHandler = () => {
+    setChangeImage(!changeImage);
+  };
+
+  const addToCartHandler = () => {
+    addItem({
+      id: productId,
+      title: cardDetails,
+      amount: amount,
+      price: price,
+      image: outImage,
+    });
+  };
 
   return (
     <div className={styles.productPage}>
       <div className={styles.productImages}>
-        <img src={inImage} alt="Inner View" className={styles.inImage} />
-        <img src={outImage} alt="Outer View" className={styles.outImage} />
+        <img
+          onClick={changeImageHandler}
+          src={changeImage ? outImage : inImage}
+          alt="Inner View"
+          className={styles.inImage}
+        />
+        <img
+          src={changeImage ? inImage : outImage}
+          alt="Outer View"
+          className={styles.outImage}
+        />
       </div>
       <div className={styles.productDetails}>
         <h2 className={styles.cardDetails}>{cardDetails}</h2>
@@ -47,7 +104,14 @@ const SingleProduct = () => {
             <span className={styles.infoValue}>{quantity}</span>
           </div>
         </div>
-        <button className={styles.addToCartButton}>Add to Cart</button>
+        <div className={styles["add-to-cart__amount"]}>
+          <button onClick={onDecreaseAmount}>-</button>
+          <span>{amount}</span>
+          <button onClick={onIncreaseAmount}>+</button>
+        </div>
+        <button onClick={addToCartHandler} className={styles.addToCartButton}>
+          Add to Cart
+        </button>
       </div>
     </div>
   );

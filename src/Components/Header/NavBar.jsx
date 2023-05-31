@@ -3,6 +3,7 @@ import { FaShoppingCart } from "react-icons/fa";
 import styles from "./NavBar.module.css";
 import CartContext from "../../Store/cart-context";
 import { NavLink } from "react-router-dom";
+import DropdownMenu from "./DropdownMenu";
 
 const Navbar = (props) => {
   const cartCtx = useContext(CartContext);
@@ -31,12 +32,12 @@ const Navbar = (props) => {
         </li>
         <li className={styles.navItem}>
           <NavLink
-            to="/shop"
+            to="products"
             className={({ isActive }) =>
               isActive ? styles.activeNavLink : styles.navLink
             }
           >
-            Shop
+            Products
           </NavLink>
         </li>
         <li className={styles.navItem}>
@@ -69,14 +70,7 @@ const Navbar = (props) => {
           </div>
         </li>
         <li className={styles.navItem}>
-          <NavLink
-            to="account"
-            className={({ isActive }) =>
-              isActive ? styles.activeNavLink : styles.navLink
-            }
-          >
-            Account
-          </NavLink>
+          <DropdownMenu />
         </li>
       </ul>
     </nav>

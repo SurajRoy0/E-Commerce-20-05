@@ -21,7 +21,7 @@ const Item = ({ id, details, image, price, isGrid, gender }) => {
 
   const onClickAddToCartHandler = () => {
     cartCtx.addItem({
-      id: id,
+      id: id.toString(),
       title: details,
       amount: 1,
       price: price,
@@ -31,7 +31,7 @@ const Item = ({ id, details, image, price, isGrid, gender }) => {
 
   return (
     <div className={layout["item-container"]}>
-      <Link to={`product/${id}`} className={layout["image-div"]}>
+      <Link to={`/product/${id}`} className={layout["image-div"]}>
         <img src={image} alt={details} className={layout.image} />
       </Link>
       <span className={layout["item-details"]}>{truncatedLine}</span>
