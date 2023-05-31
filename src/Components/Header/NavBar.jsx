@@ -4,9 +4,10 @@ import styles from "./NavBar.module.css";
 import CartContext from "../../Store/cart-context";
 import { NavLink } from "react-router-dom";
 import DropdownMenu from "./DropdownMenu";
-
+import AuthContext from "../../Store/auth-context";
 const Navbar = (props) => {
   const cartCtx = useContext(CartContext);
+  const authCtx = useContext(AuthContext);
   const totalCartAmout = cartCtx.items.reduce((currentAmount, item) => {
     return currentAmount + item.amount;
   }, 0);
@@ -23,7 +24,7 @@ const Navbar = (props) => {
           <NavLink
             to="/"
             className={({ isActive }) =>
-              isActive ? styles.activeNavLink : styles.navLink
+              isActive ? styles.dropdownToggle : styles.navLink
             }
             end
           >
@@ -32,7 +33,7 @@ const Navbar = (props) => {
         </li>
         <li className={styles.navItem}>
           <NavLink
-            to="products"
+            to={authCtx.isLoggedIn ? "/products" : "/login"}
             className={({ isActive }) =>
               isActive ? styles.activeNavLink : styles.navLink
             }

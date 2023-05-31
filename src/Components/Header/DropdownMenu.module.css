@@ -39,3 +39,11 @@
 .dropdownIcon {
   margin-right: 8px;
 }
+
+.activeNavLink {
+  color: black;
+  text-decoration: none;
+  padding: 5px;
+  transition: color 0.3s;
+  cursor: pointer;
+}

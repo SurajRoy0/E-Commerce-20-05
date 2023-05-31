@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import './App.css';
@@ -11,10 +11,13 @@ import SingleProduct from "./Components/Pages/SingleProduct"
 import ContactUs from './Components/Pages/ContactUs';
 import Products from './Components/Pages/Products';
 import Login from './Components/Pages/Login';
+import AuthContext from './Store/auth-context';
+
 
 
 function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const { isLoggedIn } = useContext(AuthContext)
   const cartOpenHandler = () => {
     setIsCartOpen(true);
   }
@@ -30,7 +33,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/products" element={<Products />} />
+        {isLoggedIn && <Route path="/products" element={<Products />} />}
         <Route path="/product/:productId" element={<SingleProduct />} />
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/login" element={<Login />} />

@@ -36,7 +36,6 @@ const ContactUs = () => {
         position: "bottom-right",
         theme: "colored",
       });
-      console.log("Post request successful:", responseData);
     } catch (error) {
       console.error("Error:", error);
     }

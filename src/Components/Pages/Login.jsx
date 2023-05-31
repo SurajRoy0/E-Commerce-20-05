@@ -84,59 +84,61 @@ const Login = () => {
       {isLoading ? (
         <Loader height="300px" width="100%" />
       ) : (
-        <form onSubmit={handleSubmit} className={styles.form}>
-          <div className={styles.formGroup}>
-            <label htmlFor="email" className={styles.label}>
-              Email:
-            </label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={handleEmailChange}
-              className={styles.input}
-              required
-            />
-          </div>
-          <div className={styles.formGroup}>
-            <label htmlFor="password" className={styles.label}>
-              Password:
-            </label>
-            <div className={styles["password-container"]}>
+        <>
+          <form onSubmit={handleSubmit} className={styles.form}>
+            <div className={styles.formGroup}>
+              <label htmlFor="email" className={styles.label}>
+                Email:
+              </label>
               <input
-                type={showPassword ? "text" : "password"}
-                id="password"
-                value={password}
-                onChange={handlePasswordChange}
+                type="email"
+                id="email"
+                value={email}
+                onChange={handleEmailChange}
                 className={styles.input}
                 required
               />
-              <span
-                className={styles.passwordToggleButton}
-                onClick={handleTogglePassword}
-              >
-                {showPassword ? (
-                  <FiEyeOff className={styles.icon} />
-                ) : (
-                  <FiEye className={styles.icon} />
-                )}
-              </span>
             </div>
+            <div className={styles.formGroup}>
+              <label htmlFor="password" className={styles.label}>
+                Password:
+              </label>
+              <div className={styles["password-container"]}>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  value={password}
+                  onChange={handlePasswordChange}
+                  className={styles.input}
+                  required
+                />
+                <span
+                  className={styles.passwordToggleButton}
+                  onClick={handleTogglePassword}
+                >
+                  {showPassword ? (
+                    <FiEyeOff className={styles.icon} />
+                  ) : (
+                    <FiEye className={styles.icon} />
+                  )}
+                </span>
+              </div>
+            </div>
+            <div className={styles["button-div"]}>
+              <button type="submit" className={styles.button}>
+                {isLogin ? "Login" : "Create Account"}
+              </button>
+            </div>
+          </form>
+          <div className={styles.create}>
+            {isLogin ? (
+              <p onClick={createNewAccountHandler}>Create a new accoun?</p>
+            ) : (
+              <p onClick={createNewAccountHandler}>Already have an account?</p>
+            )}
           </div>
-          <div className={styles["button-div"]}>
-            <button type="submit" className={styles.button}>
-              {isLogin ? "Login" : "Create Account"}
-            </button>
-          </div>
-        </form>
+        </>
       )}
-      <div className={styles.create}>
-        {isLogin ? (
-          <p onClick={createNewAccountHandler}>Create a new accoun?</p>
-        ) : (
-          <p onClick={createNewAccountHandler}>Already have an account?</p>
-        )}
-      </div>
       <ToastContainer />
     </div>
   );

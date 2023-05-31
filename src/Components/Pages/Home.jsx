@@ -34,11 +34,13 @@ const Home = () => {
         {isLoading ? (
           <Loader height="400px" width="100%" />
         ) : (
-          <Items title="New Products" products={products} />
+          <>
+            <Items title="New Products" products={products} />
+            <Link to="products">
+              <button className={styles.action}>See More</button>
+            </Link>{" "}
+          </>
         )}
-        <Link to="products">
-          <button className={styles.action}>See More</button>
-        </Link>
       </div>
     </>
   );
