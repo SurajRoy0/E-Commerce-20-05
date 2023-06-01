@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, useContext } from "react";
 import axios from "axios";
 
 import styles from "./Home.module.css";
@@ -7,9 +7,12 @@ import Items from "../Items/Items";
 import { Link } from "react-router-dom";
 import Loader from "../UI/Loader";
 
+import AuthContext from "../../Store/auth-context";
+
 const Home = () => {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const authCtx = useContext(AuthContext);
   const productsFetchHandler = useCallback(async () => {
     setIsLoading(true);
     try {
@@ -36,7 +39,7 @@ const Home = () => {
         ) : (
           <>
             <Items title="New Products" products={products} />
-            <Link to="products">
+            <Link to={authCtx.isLoggedIn ? "/products" : "/login"}>
               <button className={styles.action}>See More</button>
             </Link>{" "}
           </>

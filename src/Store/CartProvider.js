@@ -1,97 +1,129 @@
-import React, { useReducer } from 'react'
-import CartContext from './cart-context'
-
-const defaultCartState = {
-    items: [],
-    totalAmount: 0
-}
-
-const cartReducer = (state, action) => {
-    if (action.type === "ADD") {
-
-        const updatedTotalAmount =
-            state.totalAmount + action.item.price * action.item.amount;
-        const existingCartItemIndex = state.items.findIndex(
-            (item) => {
-                console.log(action.item.id)
-                console.log(item.id)
-                return item.id === action.item.id
-
-            }
-        );
-
-        console.log(existingCartItemIndex)
-        const existingCartItem = state.items[existingCartItemIndex];
-
-        let updatedItems;
-        if (existingCartItem) {
-            const updatedItem = {
-                ...existingCartItem,
-                amount: existingCartItem.amount + action.item.amount,
-            };
-            updatedItems = [...state.items];
-            updatedItems[existingCartItemIndex] = updatedItem;
-        } else {
-            updatedItems = state.items.concat(action.item);
-        }
-
-        return {
-            items: updatedItems,
-            totalAmount: updatedTotalAmount,
-        };
-    }
-    if (action.type === "REMOVE") {
-        const existingCartItemIndex = state.items.findIndex(item => item.id === action.id)
-        const existingCartItem = state.items[existingCartItemIndex];
-        const updatedTotalAmount = state.totalAmount - existingCartItem.price;
-        let updatedItems;
-        if (existingCartItem.amount === 1) {
-            updatedItems = state.items.filter(item => item.id !== action.id)
-        }
-        else {
-            let updatedItem = {
-                ...existingCartItem, amount: existingCartItem.amount - 1
-            }
-            updatedItems = [...state.items];
-            updatedItems[existingCartItemIndex] = updatedItem;
-        }
-        return {
-            items: updatedItems,
-            totalAmount: updatedTotalAmount
-        }
-    }
-
-    if (action.type === "REMOVE_ALL") {
-        return defaultCartState;
-    }
-    return defaultCartState;
-}
+import React, { useState, useEffect, useContext } from 'react';
+import CartContext from './cart-context';
+import axios from 'axios';
+import AuthContext from './auth-context';
 
 const CartProvider = (props) => {
-    const [cartState, dispatchCartAction] = useReducer(cartReducer, defaultCartState)
+    const userEmail = JSON.parse(localStorage.getItem('user-auth-token'));
+    const [cartItems, setCartItems] = useState([]);
+    const [totalCartAmount, setTotalCartAmount] = useState(0);
 
-    const addItemToCartHandler = item => {
-        dispatchCartAction({ type: "ADD", item: item })
-    }
+    const authCtx = useContext(AuthContext)
 
-    const removeItemFromCartHandler = id => {
-        dispatchCartAction({ type: "REMOVE", id: id })
+    const fetchedStoredData = () => {
+        let fetchedItems = [];
+        let fetchedTotalAmount = 0;
+        axios
+            .get(`https://react-e-commerce-sharpener-default-rtdb.asia-southeast1.firebasedatabase.app/cart/${userEmail?.email}-cart-items.json`)
+            .then((response) => {
+                fetchedItems = response.data;
+                fetchedTotalAmount = fetchedItems?.reduce((currentAmount, item) => {
+                    return currentAmount + item.price;
+                }, 0);
+                if (response.data != null) {
+                    setCartItems(fetchedItems)
+                    setTotalCartAmount(fetchedTotalAmount)
+                }
+
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+
     }
+    useEffect(() => {
+        if (authCtx.isLoggedIn) {
+
+            fetchedStoredData();
+        } else {
+            setCartItems([])
+            setTotalCartAmount(0)
+        }
+
+    }, [authCtx.isLoggedIn]);
+
+    const addItemToCartHandler = (item) => {
+        const existingCartItem = cartItems?.find((product) => product.id === item.id);
+        let updatedItems;
+        if (existingCartItem !== undefined) {
+            const updatedItem = {
+                ...existingCartItem,
+                amount: existingCartItem.amount + item.amount,
+            };
+
+            updatedItems = cartItems?.map((product) =>
+                product.id === item.id ? updatedItem : product
+            );
+        } else {
+            updatedItems = [...cartItems, item];
+            console.log(updatedItems)
+        }
+
+        axios
+            .put(`https://react-e-commerce-sharpener-default-rtdb.asia-southeast1.firebasedatabase.app/cart/${userEmail.email}-cart-items.json`, updatedItems)
+            .then((response) => {
+                fetchedStoredData();
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
+
+    const removeItemFromCartHandler = (id) => {
+        const existingCartItem = cartItems.find((product) => product.id === id);
+        let updatedItems;
+        if (existingCartItem.amount === 1) {
+
+            updatedItems = cartItems.filter((product) => product.id !== id);
+
+        } else {
+            const updatedItem = {
+                ...existingCartItem,
+                amount: existingCartItem.amount - 1,
+            };
+            updatedItems = cartItems.map((product) =>
+                product.id === id ? updatedItem : product
+            );
+        }
+        axios
+            .put(`https://react-e-commerce-sharpener-default-rtdb.asia-southeast1.firebasedatabase.app/cart/${userEmail.email}-cart-items.json`, updatedItems)
+            .then((response) => {
+                fetchedStoredData();
+                if (updatedItems.length === 0) {
+                    setCartItems([])
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
+
 
     const removeAllItemsFromCartHandler = () => {
-        dispatchCartAction({ type: "REMOVE_ALL" })
-    }
+        axios
+            .put(`https://react-e-commerce-sharpener-default-rtdb.asia-southeast1.firebasedatabase.app/cart/${userEmail.email}-cart-items.json`, [])
+            .then((response) => {
+                fetchedStoredData();
+                setCartItems([])
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
 
     const cartContext = {
-        items: cartState.items,
-        totalAmount: cartState.totalAmount,
+        items: cartItems,
+        totalAmount: totalCartAmount,
         addItem: addItemToCartHandler,
         removeItem: removeItemFromCartHandler,
-        removeAllItems: removeAllItemsFromCartHandler
-    }
-    return (
-        <CartContext.Provider value={cartContext}>{props.children}</CartContext.Provider>
-    )
-}
+        removeAllItems: removeAllItemsFromCartHandler,
+    };
 
-export default CartProvider
+    return (
+        <CartContext.Provider value={cartContext}>
+            {props.children}
+        </CartContext.Provider>
+    );
+};
+
+export default CartProvider;

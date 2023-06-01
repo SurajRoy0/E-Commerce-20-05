@@ -1,11 +1,14 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import stylesGrid from "./ItemForGrid.module.css";
 import stylesList from "./ItemForList.module.css";
 import CartContext from "../../Store/cart-context";
+import AuthContext from "../../Store/auth-context";
 const Item = ({ id, details, image, price, isGrid, gender }) => {
   const cartCtx = useContext(CartContext);
+  const { isLoggedIn } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   let itemDetails = details;
   const maxLength = 22;
@@ -20,13 +23,17 @@ const Item = ({ id, details, image, price, isGrid, gender }) => {
   const layout = isGrid ? stylesList : stylesGrid;
 
   const onClickAddToCartHandler = () => {
-    cartCtx.addItem({
-      id: id.toString(),
-      title: details,
-      amount: 1,
-      price: price,
-      image: image,
-    });
+    if (isLoggedIn) {
+      cartCtx.addItem({
+        id: id.toString(),
+        title: details,
+        amount: 1,
+        price: price,
+        image: image,
+      });
+    } else {
+      navigate("/login");
+    }
   };
 
   return (

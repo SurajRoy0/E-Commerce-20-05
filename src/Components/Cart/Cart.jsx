@@ -9,7 +9,6 @@ import { ToastContainer, toast } from "react-toastify";
 const Cart = (props) => {
   const portalElement = document.getElementById("cart");
   const cartCtx = useContext(CartContext);
-  console.log(cartCtx.items);
   const onOrderHandler = () => {
     cartCtx.removeAllItems();
     toast.success("Ordered Successfully", {
@@ -42,7 +41,7 @@ const Cart = (props) => {
               <button onClick={props.onCartClose}>Close</button>
             </div>
             <ul className={styles["second-div"]}>
-              {cartCtx.items.map((item) => (
+              {cartCtx.items?.map((item) => (
                 <CartItem
                   key={item.id}
                   item={item}
@@ -52,13 +51,13 @@ const Cart = (props) => {
                 />
               ))}
             </ul>
-            {cartCtx.items.length !== 0 && (
+            {cartCtx.items?.length !== 0 && (
               <div className={styles["third-div"]}>
                 <h2>SubTotal: ₹{cartCtx.totalAmount}</h2>
                 <button onClick={onOrderHandler}>Place Order</button>
               </div>
             )}
-            {cartCtx.items.length === 0 && (
+            {cartCtx.items?.length === 0 && (
               <h2 className={styles.empty}>Empty</h2>
             )}
           </div>

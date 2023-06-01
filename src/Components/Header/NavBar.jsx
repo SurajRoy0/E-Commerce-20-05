@@ -11,7 +11,6 @@ const Navbar = (props) => {
   const totalCartAmout = cartCtx.items.reduce((currentAmount, item) => {
     return currentAmount + item.amount;
   }, 0);
-
   return (
     <nav className={styles.navbar}>
       <div>
@@ -24,7 +23,7 @@ const Navbar = (props) => {
           <NavLink
             to="/"
             className={({ isActive }) =>
-              isActive ? styles.dropdownToggle : styles.navLink
+              isActive ? styles.activeNavLink : styles.navLink
             }
             end
           >
@@ -35,7 +34,9 @@ const Navbar = (props) => {
           <NavLink
             to={authCtx.isLoggedIn ? "/products" : "/login"}
             className={({ isActive }) =>
-              isActive ? styles.activeNavLink : styles.navLink
+              authCtx.isLoggedIn && isActive
+                ? styles.activeNavLink
+                : styles.navLink
             }
           >
             Products

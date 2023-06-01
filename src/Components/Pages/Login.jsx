@@ -7,6 +7,7 @@ import AuthContext from "../../Store/auth-context";
 import Loader from "../UI/Loader";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import CartContext from "../../Store/cart-context";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -18,6 +19,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const authCtx = useContext(AuthContext);
+  const cartCtx = useContext(CartContext);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -34,8 +36,6 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-
-    console.log("Login with email:", email, "and password:", password);
     let url = "";
     if (isLogin) {
       url =
@@ -51,7 +51,8 @@ const Login = () => {
         password: password,
         returnSecureToken: true,
       });
-      authCtx.login(response.data.idToken);
+      const modifiedEmail = email.replace(/[@.]/g, "-");
+      authCtx.login(response.data.idToken, modifiedEmail);
       setIsLoading(false);
       toast.success("Login Successfully", {
         position: "bottom-right",
