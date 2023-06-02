@@ -87,3 +87,16 @@
   justify-content: center;
   margin-top: 240px;
 }
+
+.login {
+  background-color: #064cce;
+  color: aliceblue;
+  font-size: medium;
+  padding: 8px 30px;
+  border: none;
+  margin-top: 240px;
+  border-radius: 3px;
+  margin-left: 200px;
+  margin-right: 200px;
+  cursor: pointer;
+}

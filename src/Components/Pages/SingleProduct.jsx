@@ -7,8 +7,9 @@ import React, {
 } from "react";
 import axios from "axios";
 import styles from "./SingleProduct.module.css";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import CartContext from "../../Store/cart-context";
+import AuthContext from "../../Store/auth-context";
 
 const minAmount = 1;
 const stateReducer = (state, action) => {
@@ -33,8 +34,10 @@ const SingleProduct = () => {
   const { productId } = useParams();
   const { inImage, outImage, cardDetails, price, gender, category, quantity } =
     product;
-
+  const { isLoggedIn } = useContext(AuthContext);
   const { addItem } = useContext(CartContext);
+
+  const navigate = useNavigate();
 
   const onIncreaseAmount = () => {
     dispatchAmount({ type: "INCREASE" });
@@ -63,13 +66,17 @@ const SingleProduct = () => {
   };
 
   const addToCartHandler = () => {
-    addItem({
-      id: productId,
-      title: cardDetails,
-      amount: amount,
-      price: price,
-      image: outImage,
-    });
+    if (isLoggedIn) {
+      addItem({
+        id: productId,
+        title: cardDetails,
+        amount: amount,
+        price: price,
+        image: outImage,
+      });
+    } else {
+      navigate("/login");
+    }
   };
 
   return (

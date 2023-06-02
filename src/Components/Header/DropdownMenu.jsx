@@ -22,6 +22,7 @@ const DropdownMenu = () => {
   };
 
   const logoutHandler = () => {
+    closeDropdown();
     authCtx.logout();
   };
 

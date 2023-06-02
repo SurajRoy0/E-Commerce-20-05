@@ -19,7 +19,6 @@ const Login = () => {
   const navigate = useNavigate();
 
   const authCtx = useContext(AuthContext);
-  const cartCtx = useContext(CartContext);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -51,13 +50,21 @@ const Login = () => {
         password: password,
         returnSecureToken: true,
       });
-      const modifiedEmail = email.replace(/[@.]/g, "-");
-      authCtx.login(response.data.idToken, modifiedEmail);
       setIsLoading(false);
-      toast.success("Login Successfully", {
-        position: "bottom-right",
-        theme: "colored",
-      });
+      if (isLogin) {
+        const modifiedEmail = email.replace(/[@.]/g, "-");
+        authCtx.login(response.data.idToken, modifiedEmail);
+        toast.success("Login Successfully", {
+          position: "bottom-right",
+          theme: "colored",
+        });
+      } else {
+        toast.success("New Account Has Created", {
+          position: "bottom-right",
+          theme: "colored",
+        });
+      }
+
       if (isLogin) {
         navigate("/products");
       } else {
