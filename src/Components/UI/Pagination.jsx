@@ -16,7 +16,7 @@ const Pagination = ({ numberOfProduct, setSurrentPage, pageSize }) => {
         previousLabel={"PREV"}
         nextLabel={"NEXT"}
         pageCount={Math.ceil(numberOfProduct / pageSize)}
-        pageRangeDisplayed={3}
+        pageRangeDisplayed={2}
         marginPagesDisplayed={2}
         breakLabel="..."
         onPageChange={handlePageChange}

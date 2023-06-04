@@ -2,8 +2,13 @@
   background-color: #0400ff;
   padding: 10px 200px;
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  max-width: 100%;
+  overflow-x: hidden;
+  white-space: nowrap;
+  position: relative;
 }
 
 .logoText {
@@ -23,6 +28,11 @@
 
 .navItem {
   margin-right: 10px;
+  font-size: 18px;
+  color: antiquewhite;
+}
+.menuIcons {
+  margin-right: 8px;
 }
 
 .navLink {
@@ -33,14 +43,17 @@
   display: flex;
   align-items: center;
   cursor: pointer;
+  font-size: 18px;
 }
 .activeNavLink {
-  color: black;
   text-decoration: none;
   padding: 5px;
   transition: color 0.3s;
   cursor: pointer;
+  color: rgb(255, 0, 119);
+  font-weight: bold;
 }
+
 .navLinkCart {
   display: flex;
   align-items: center;
@@ -68,5 +81,72 @@
 }
 
 .navLink:hover {
-  color: #0c0c0c;
+  color: rgb(255, 0, 119);
+  font-weight: bold;
+}
+
+.mobileMenu {
+  display: none;
+}
+
+.clsoeMenu {
+  position: fixed;
+  font-size: 20px;
+  margin-bottom: 100px;
+  z-index: 99999;
+  top: 15px;
+  right: 5px;
+  color: aliceblue;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 998px) {
+  .mobileMenu {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .menuIcon {
+    font-size: 25px;
+    color: white;
+    margin: 0;
+    padding: 0;
+  }
+  .cartNav {
+    display: none;
+  }
+  .drop-down-menu {
+    margin-left: 3px;
+    margin-top: 13px;
+  }
+  .navbar {
+    flex-direction: row;
+    padding: 10px;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  .navbarNav {
+    position: fixed;
+    z-index: 99999;
+    top: -10px;
+    left: 0;
+    margin-top: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+  }
+
+  .navClose {
+    display: none;
+  }
+
+  .navItem {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
 }

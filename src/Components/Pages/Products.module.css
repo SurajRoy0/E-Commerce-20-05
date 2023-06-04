@@ -2,18 +2,22 @@
   display: flex;
   flex-direction: column;
 }
+
 .filters {
   margin-top: 30px;
   display: flex;
   gap: 30px;
   justify-content: center;
 }
+
 .filter-option {
   width: 250px;
 }
+
 .filter-option label {
   color: #464444;
 }
+
 .filter-option select {
   width: 100%;
   border-color: rgb(66, 98, 240);
@@ -40,12 +44,32 @@ label {
   font-size: 14px;
 }
 
-.filteredProducts {
-  padding: 0 200px 40px 200px;
-  text-align: center;
-}
-
 .product {
   border: 1px solid #ccc;
   padding: 10px;
+}
+
+.paginationContainer {
+  display: flex;
+  justify-content: center;
+  margin: 20px auto;
+}
+
+@media screen and (max-width: 1024px) {
+  .filter-title {
+    display: none;
+  }
+  .filters {
+    padding: 0 25px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .filter-title {
+    display: none;
+  }
+
+  .filters {
+    gap: 15px;
+  }
 }

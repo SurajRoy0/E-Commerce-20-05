@@ -8,6 +8,7 @@
   margin-right: 10px;
   float: left;
 }
+
 h1 {
   text-align: center;
 }
@@ -15,4 +16,16 @@ h1 {
 .content p {
   text-align: justify;
   margin-top: 0;
+}
+
+@media screen and (max-width: 1024px) {
+  .container {
+    padding: 10px;
+  }
+  .image {
+    max-width: 100%;
+    display: block;
+    margin: 0 auto 10px auto;
+    float: none;
+  }
 }

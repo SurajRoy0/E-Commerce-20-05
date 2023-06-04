@@ -80,3 +80,47 @@
   color: blueviolet;
   font-weight: 700;
 }
+
+@media screen and (max-width: 1024px) {
+  .container {
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    margin: 20px auto 20px auto;
+  }
+
+  .heading {
+    font-size: 20px;
+  }
+
+  .form {
+    width: 250px;
+    margin-left: 0;
+  }
+
+  .formGroup {
+    margin-bottom: 15px;
+  }
+
+  .input {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .passwordToggleButton {
+    font-size: 18px;
+    right: -10px;
+  }
+
+  .button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  .create p {
+    font-size: 14px;
+  }
+}

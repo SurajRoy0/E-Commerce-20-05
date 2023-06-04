@@ -18,7 +18,7 @@ const CartProvider = (props) => {
             .then((response) => {
                 fetchedItems = response.data;
                 fetchedTotalAmount = fetchedItems?.reduce((currentAmount, item) => {
-                    return currentAmount + item.price;
+                    return currentAmount + item.price * item.amount;
                 }, 0);
                 if (response.data != null) {
                     setCartItems(fetchedItems)
@@ -33,7 +33,6 @@ const CartProvider = (props) => {
     }
     useEffect(() => {
         if (authCtx.isLoggedIn) {
-
             fetchedStoredData();
         } else {
             setCartItems([])
@@ -56,7 +55,6 @@ const CartProvider = (props) => {
             );
         } else {
             updatedItems = [...cartItems, item];
-            console.log(updatedItems)
         }
 
         axios

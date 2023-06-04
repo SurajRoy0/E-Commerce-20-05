@@ -39,9 +39,41 @@ textarea {
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  align-self: center; /* Added */
+  align-self: center;
 }
 
 .submitButton:hover {
   background-color: #0056b3;
+}
+
+@media screen and (max-width: 1024px) {
+  .container {
+    margin: 3rem auto 2rem auto;
+    padding: 0 20px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    margin: 20px auto 20px auto;
+    padding: 0 20px;
+  }
+  .form {
+    width: 95%;
+  }
+  .formGroup {
+    margin-bottom: 15px;
+  }
+
+  input,
+  textarea {
+    padding: 8px;
+  }
+
+  .submitButton {
+    padding: 8px 16px;
+  }
+  .h1 {
+    margin-top: 0;
+  }
 }

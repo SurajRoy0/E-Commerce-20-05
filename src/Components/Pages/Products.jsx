@@ -79,7 +79,7 @@ const Products = () => {
   return (
     <div className={styles.products}>
       <div className={styles.filters}>
-        <h3>Filters</h3>
+        <h3 className={styles["filter-title"]}>Filters</h3>
         <div className={styles["filter-option"]}>
           <label>Category:</label>
           <select
@@ -95,7 +95,7 @@ const Products = () => {
           </select>
         </div>
         <div className={styles["filter-option"]}>
-          <label>Price Range:</label>
+          <label>Price:</label>
           <select
             value={selectedPriceRange}
             onChange={(e) => setSelectedPriceRange(e.target.value)}
@@ -129,11 +129,13 @@ const Products = () => {
         ) : (
           <>
             <Items title="Products" products={currentItems} />
-            <Pagination
-              numberOfProduct={filteredProducts.length}
-              pageSize={pageSize}
-              setSurrentPage={setCurrentPage}
-            />
+            <div className={styles.paginationContainer}>
+              <Pagination
+                numberOfProduct={filteredProducts.length}
+                pageSize={pageSize}
+                setSurrentPage={setCurrentPage}
+              />
+            </div>
           </>
         )}
       </div>

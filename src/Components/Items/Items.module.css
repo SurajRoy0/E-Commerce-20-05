@@ -1,7 +1,10 @@
 .itemContainer {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
+  margin: auto;
+  width: 80%;
 }
 
 .itemsGrid {
@@ -13,4 +16,24 @@
 .itemsList {
   list-style-type: none;
   padding: 0;
+}
+
+/* Responsive Styles */
+
+@media screen and (max-width: 1024px) {
+  .itemsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .itemContainer {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .itemsGrid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .itemContainer {
+    width: 100%;
+  }
 }

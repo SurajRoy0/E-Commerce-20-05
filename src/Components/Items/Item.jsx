@@ -1,11 +1,10 @@
 import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import stylesGrid from "./ItemForGrid.module.css";
-import stylesList from "./ItemForList.module.css";
+import styles from "./Item.module.css";
 import CartContext from "../../Store/cart-context";
 import AuthContext from "../../Store/auth-context";
-const Item = ({ id, details, image, price, isGrid, gender }) => {
+const Item = ({ id, details, image, price, gender }) => {
   const cartCtx = useContext(CartContext);
   const { isLoggedIn } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -19,8 +18,6 @@ const Item = ({ id, details, image, price, isGrid, gender }) => {
   } else {
     truncatedLine = itemDetails;
   }
-
-  const layout = isGrid ? stylesList : stylesGrid;
 
   const onClickAddToCartHandler = () => {
     if (isLoggedIn) {
@@ -37,16 +34,16 @@ const Item = ({ id, details, image, price, isGrid, gender }) => {
   };
 
   return (
-    <div className={layout["item-container"]}>
-      <Link to={`/product/${id}`} className={layout["image-div"]}>
-        <img src={image} alt={details} className={layout.image} />
+    <div className={styles["item-container"]}>
+      <Link to={`/product/${id}`} className={styles["image-div"]}>
+        <img src={image} alt={details} className={styles.image} />
       </Link>
-      <span className={layout["item-details"]}>{truncatedLine}</span>
-      <span className={layout["item-gender"]}>{gender}</span>
-      <span className={layout["item-price"]}>₹{price}</span>
+      <span className={styles["item-details"]}>{truncatedLine}</span>
+      <span className={styles["item-gender"]}>{gender}</span>
+      <span className={styles["item-price"]}>₹{price}</span>
       <button
         onClick={onClickAddToCartHandler}
-        className={layout["add-to-cart-btn"]}
+        className={styles["add-to-cart-btn"]}
       >
         Add to Cart
       </button>
