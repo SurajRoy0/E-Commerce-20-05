@@ -1,12 +1,12 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { FaShoppingCart, FaBars, FaHome } from "react-icons/fa";
+import { FiUser, FiLogOut } from "react-icons/fi";
 import { MdShoppingCart } from "react-icons/md";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import { FiMail } from "react-icons/fi";
 import styles from "./NavBar.module.css";
 import CartContext from "../../Store/cart-context";
 import { NavLink } from "react-router-dom";
-import DropdownMenu from "./DropdownMenu";
 import AuthContext from "../../Store/auth-context";
 
 const Navbar = (props) => {
@@ -22,6 +22,10 @@ const Navbar = (props) => {
     setIsMenuOpen((prevState) => !prevState);
   };
 
+  const logoutHandler = () => {
+    handleMenuToggle();
+    authCtx.logout();
+  };
   return (
     <nav className={styles.navbar}>
       <div>
@@ -90,7 +94,27 @@ const Navbar = (props) => {
           </div>
         </li>
         <li className={`${styles.navItem} ${styles["drop-down-menu"]}`}>
-          <DropdownMenu handleMenuToggle={handleMenuToggle} />
+          {!authCtx.isLoggedIn ? (
+            <NavLink
+              to="/login"
+              className={({ isActive }) =>
+                isActive ? styles.activeNavLink : styles.navLink
+              }
+              onClick={handleMenuToggle}
+            >
+              <FiUser className={styles.dropdownIcon} />
+              Login
+            </NavLink>
+          ) : (
+            <NavLink
+              to="/login"
+              className={styles.navLink}
+              onClick={logoutHandler}
+            >
+              <FiLogOut className={styles.dropdownIcon} />
+              Logout
+            </NavLink>
+          )}
         </li>
       </ul>
 
